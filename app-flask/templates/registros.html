@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<!-- Ejemplo usado en el flisol2018 en Loja / autor @reroes -->
+<!-- Ejemplo usado en el flisol2018 en Loja / autor @reroes-->
 <html>
 <head>
   <title>Universidades</title>
@@ -14,8 +14,8 @@
   <form  action="" method="post" role="form">
     {{ form.csrf }}
     <div class="form-group">
-      <label for="primero">Ingres nombre o inicial del cantón:</label>
-      <input type="text" class="form-control" id="primero" name="primero" placeholder="Nombres...">
+      <label for="primero">Ingrese inicial de la ciudad para la busqueda:</label>
+      <input type="text" class="form-control" id="primero" name="primero" placeholder="Inicial...">
       <br>
     </div>
     <button type="submit" class="btn btn-success">Consultar</button>
@@ -29,18 +29,19 @@
   <div>
       <table class="table"> 
         <tr>
-          <th>nombre</th>
-          <th>ciudad</th>
-          <th>latitud</th>
-          <th>longitud</th>
-          <th>url</th>
-          <th>direccion</th>
+          <th>Universidad</th>
+          <th>Ciudad</th>
+          <th>Direccion</th>
+          <th>Url</th>
         </tr>
 
         {% for d in data %}
         <tr>
-          <td>{{d['Provincia'].decode('utf-8')}}</td>
-          <td>{{d['Canton'].decode('utf-8')}}</td>
+          <td>{{d['Nombre'].decode('utf-8')}}</td>
+          <td>{{d['Ciudad'].decode('utf-8')}}</td>
+          <td>{{d['Direccion'].decode('utf-8')}}</td>
+          <td>{{d['Sitio web'].decode('utf-8')}}</td>
+
         </tr>
         {% endfor %}
       </table> 
@@ -50,7 +51,6 @@
     <br>
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
- 
         {% for message in messages %}
             {% if "Error" not in message[1]: %}
                 <div class="alert alert-info">

@@ -28,16 +28,19 @@ def registros():
         print "%s" % (primero)
  
         if form.validate():
-            connection = sqlite3.connect("../notebooks/instituciones.db")
+            #base de datos
+            connection = sqlite3.connect("../notebooks/organizacion.db")
             connection.text_factory = str
-            df = pd.read_sql_query("SELECT * from educativas", connection)
-            data = df[(df['Canton'].str.contains(primero))][['Provincia','Canton','Parroquia', 'Masculino', 'Femenino']]
+            #se busca solo por inicial a partir de ciudad
+            df = pd.read_sql_query("SELECT DISTINCT * from universidad", connection)      
+            data = df[(df['Ciudad'].str.contains(primero))][['Nombre','Ciudad','Direccion','Sitio web']]
             tabla = data.to_html()
             data = data.to_dict(orient="records")
             numero = len(data)
             print "%s ---- numero" % numero
         else:
             flash('Error')
+    #return render_template('registros.html', form=form, data=data, tabla=tabla, numero=numero)
     return render_template('registros.html', form=form, data=data, tabla=tabla, numero=numero)
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
